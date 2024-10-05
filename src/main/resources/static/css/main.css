@@ -1,0 +1,13 @@
+#header-brand {
+    background-image: url("../img/headerimg.webp");;
+}
+.book-card {
+    text-align: center;
+}
+.book-card-img{
+    text-align: center;
+}
+
+.opacity-95 {
+    opacity: 0.95;
+}

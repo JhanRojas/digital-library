@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
+</head>
+<body>
+<header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <strong>Biblioteca Virtual</strong>
+            </a>
+        </div>
+    </div>
+</header>
+<main>
+    <section id="header-brand" class="py-5 text-center">
+        <div class="row py-lg-4">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light font-weight-bold text-white">Biblioteca Virtual</h1>
+                <p class="lead text-white">Aquí encontrarás muchos libros de diferentes especialidades </p>
+            </div>
+        </div>
+    </section>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="pl-4">
+            <div class="row">
+                <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 mb-3 pl-4 pr-4" th:each="book: ${books}">
+                    <div class="card shadow-sm book-card">
+                        <div class="book-card-img">
+                            <!--<img th:src="@{'data:image/jpeg;base64,'+${book.generateBase64Image()}}"
+                                 src="../static/img/libro01.jpg" class="img-fluid" alt="..." width="80%">-->
+                            <img th:src="${book.imageURL}"
+                                 src="https://www.crisol.com.pe/media/catalog/product/cache/cf84e6047db2ba7f2d5c381080c69ffe/9/7/9786123198695_hpr20if0s01sl1u5.jpg" class="img-fluid" alt="..." width="70%">
+                        </div>
+                        <div class="card-body pt-0">
+                            <label class="card-title h6" th:text="${book.title}">Titulo</label>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span th:text="'S/ '+${book.price}" class="h6">S/ 50.0</span>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#bookModal" th:attr="data-target='#bookModal'+${book.id }" >Ver
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                            disabled="disabled">Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="bookModal" th:id="'bookModal' + ${book.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-xl opacity-95" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel" th:text="${book.title}">Secretos y escándalos</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <!--<img th:src="@{'data:image/jpeg;base64,'+${book.generateBase64Image()}}" src="../static/img/libro01.jpg" class="img-fluid"
+                                                     alt="...">-->
+                                                <img th:src="${book.imageURL}" src="https://www.crisol.com.pe/media/catalog/product/cache/cf84e6047db2ba7f2d5c381080c69ffe/9/7/9786123198695_hpr20if0s01sl1u5.jpg" class="img-fluid" alt="...">
+                                            </div>
+                                            <div class="col-md">
+                                                <div class="d-flex align-items-start flex-column" style="height: 100%">
+                                                    <div class="mb-auto p-2">
+                                                        <div class="row">
+                                                            <label class="h4">Synopsis</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <p th:text="${book.synopsis}">Giacomo Bocchio es uno de los chefs más reconocidos y talentosos de nuestro país. A los veinticinco años se convirtió en el chef más joven del mundo en ingresar a la Academia Culinaria de Francia. Cuenta con más de veinte años de experiencia en el mundo culinario, donde ha trabajado en grandes cadenas hoteleras 5 estrellas, para grandes cocineros reconocidos como Alex Atala y Joan Roca, como profesor en las mejores escuelas gastronómicas de Perú. A los veintiséis años abrió el restaurante Manifiesto. Actualmente, brinda asesorías en diferentes países y es uno de los jurados del reality show El Gran Chef Famosos, de Latina. Ha ganado los premios Chef Revelación Premios Luces del Comercio y Maestros del Sabor 2020. Condujo el programa Omnívoro por el único canal de gastronomía del Perú Alacocina TV y Cocina Nostra por América TV. En este libro en tapa dura y full color, Giacomo comparte con nosotros más de cien recetas —entre bases, entradas, fondos, piqueos y postres— de la cocina peruana e internacional, además de técnicas y consejos para cocinar en casa como todos unos profesionales. En Eleva tu juego culinario encontraremos recetas variadas, desde los peruanísimos chaufa de mariscos, seco con frejoles o ceviche mixto, hasta platos de la cocina francesa como una chuleta charcutiere, la italiana como un fettuccini a la crema con pechuga rellena, y hasta postres como el tiramisú o el ranfañote.</p>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="h5">Detalles</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <span>Autor:</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;<span th:text="${book.author}">Ramos, Pedro</span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <span>Editorial:</span>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<span th:text="${book.publisher}">Planeta</span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <span>Año de publicación:</span>&ensp;<span th:text="${book.publishYear}">2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="mr-auto ml-3">
+                                        <span class="h5">Precio</span>&ensp;<span th:text="'S/ '+${book.price}" class="h5">S/ 50.0</span>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" disabled="disabled">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
+
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-7 col-xl-6 mb-9">
+                    <h3>Consejos</h3>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <video class="embed-responsive-item" controls>
+                            <source th:src="@{/video/video.mp4}" src="../static/video/video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+<footer class="text-body-secondary py-5 bg-secondary">
+    <div class="container">
+
+        <p class="float-end mb-1">
+            <a href="#">Regresar al inicio</a>
+        </p>
+        <p class="mb-1">Biblioteca Virtual</p>
+    </div>
+</footer>
+<script th:src="@{/js/jquery-3.3.1.slim.min.js}" src="../static/js/jquery-3.3.1.slim.min.js"></script>
+<script th:src="@{/js/popper.min.js}" src="../static/js/popper.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>
